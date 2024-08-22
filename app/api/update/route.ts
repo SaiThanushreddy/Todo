@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
-import Todo from '@/models/Todo'; 
-import connectDB from '@/lib/'; 
+import Todo from '@/model/todo'; 
+import connectMongoDB from '@/lib/db'; 
 
 export async function PUT(request, { params }) {
   const { title } = params;
   const { newTitle, description, completed } = await request.json();
 
   try {
-    await connectDB();
+    await connectMongoDB();
     const updatedTodo = await Todo.findOneAndUpdate(
       { title },
       { title: newTitle, description, completed },
